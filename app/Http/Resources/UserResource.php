@@ -21,6 +21,8 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'role'=>$this->whenLoaded('roles',fn()=>$this->getRoleNames()->first()),
+            'permissions'=>$this->getAllPermissions()->pluck('name'),
             'avatar' => MediaResource::make($this->getMedia('primary-image')->first()),
             'studentDetailes'=>new StudentDetailResource($this->whenLoaded('studentDetail')),
         ];

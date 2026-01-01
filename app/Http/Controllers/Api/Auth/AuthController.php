@@ -22,7 +22,7 @@ class AuthController extends Controller
         $user = $result['user'];
         $token = $result['token'];
 
-        return UserResource::make($user->load(['media','studentDetail']))
+        return UserResource::make($user->load(['media','studentDetail','roles']))
             ->additional([
                 'message'=>'Created User Successfully',
                 'token'=>$token
@@ -36,7 +36,7 @@ class AuthController extends Controller
         $user=$result['user'];
         $token=$result['token'];
 
-        return UserResource::make($user->load(['media','studentDetail']))
+        return UserResource::make($user->load(['media','studentDetail','roles']))
             ->additional([
                 'message'=>'Login User Successfully',
                 'token'=>$token
@@ -48,7 +48,7 @@ class AuthController extends Controller
         $user=$request->user();
         $user->currentAccessToken()->delete();
 
-        return UserResource::make($user->load(['media','studentDetail']))
+        return UserResource::make($user->load(['media','studentDetail','roles']))
             ->additional([
                 'message'=>'Logout User Successfully',
             ]);
