@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Notifications\Messages\MailMessage;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        ResetPassword::toMailUsing(function ($notifiable, $token) {
+        $url = config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";
+
+        return (new MailMessage)
+            ->subject('Reset Your Password - ProjectFlow')
+            ->view('emails.forgot-password', [
+                'url' => $url,
+                'name' => $notifiable->name,
+            ]);
+    });
     }
 }
