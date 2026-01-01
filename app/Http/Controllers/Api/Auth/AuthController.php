@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Actions\Auth\LoginUserAction;
 use App\Actions\Auth\RegisterNewUserAction;
-use App\Data\StudentDetailsData;
+use App\Data\StudentData;
 use App\Data\UserData;
+use App\Enums\ResponseMessages;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
@@ -18,13 +19,13 @@ class AuthController extends Controller
 {
     public function register(RegisterUserRequest $request,RegisterNewUserAction $registerNewUserAction):JsonResponse
     {
-        $result=$registerNewUserAction->execute(UserData::from($request->validated()),StudentDetailsData::from($request->validated()));
+        $result=$registerNewUserAction->execute(UserData::from($request->validated()),StudentData::from($request->validated()));
         $user = $result['user'];
         $token = $result['token'];
 
-        return UserResource::make($user->load(['media','studentDetail','roles']))
+        return UserResource::make($user->load(['media','student','roles','permissions']))
             ->additional([
-                'message'=>'Created User Successfully',
+                'message'=>ResponseMessages::CREATED,
                 'token'=>$token
             ])->response()
             ->setStatusCode(Response::HTTP_CREATED);
@@ -36,9 +37,9 @@ class AuthController extends Controller
         $user=$result['user'];
         $token=$result['token'];
 
-        return UserResource::make($user->load(['media','studentDetail','roles']))
+        return UserResource::make($user->load(['media','student','roles','permissions']))
             ->additional([
-                'message'=>'Login User Successfully',
+                'message'=>ResponseMessages::RETRIEVED,
                 'token'=>$token
             ]);
     }
@@ -48,9 +49,9 @@ class AuthController extends Controller
         $user=$request->user();
         $user->currentAccessToken()->delete();
 
-        return UserResource::make($user->load(['media','studentDetail','roles']))
+        return UserResource::make($user->load(['media','student','roles','permissions']))
             ->additional([
-                'message'=>'Logout User Successfully',
+                'message'=>ResponseMessages::DELETED,
             ]);
     }
 }

@@ -13,7 +13,7 @@ class Major extends Model
         'name'
     ];
 
-    public function studentDetails():HasMany{
-        return $this->hasMany(StudentDetail::class);
+    public function students():HasMany{
+        return $this->hasMany(Student::class);
     }
 }

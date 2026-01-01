@@ -53,8 +53,8 @@ class User extends Authenticatable  implements HasMedia
         ];
     }
 
-    public function studentDetail():HasOne{
-        return $this->hasOne(StudentDetail::class);
+    public function student():HasOne{
+        return $this->hasOne(Student::class);
     }
 
     public function projects():HasMany{
@@ -65,7 +65,7 @@ class User extends Authenticatable  implements HasMedia
     {
         return $this->hasManyThrough(
             ProjectRequest::class,
-            StudentDetail::class,
+            Student::class,
             'user_id',
             'team_id',
             'id',

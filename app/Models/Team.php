@@ -17,8 +17,8 @@ class Team extends Model
         return $this->belongsTo(User::class,'leader_id');
     }
 
-    public function studentDetails():HasMany{
-        return $this->hasMany(StudentDetail::class);
+    public function students():HasMany{
+        return $this->hasMany(Student::class);
     }
 
     public function projectRequests():HasMany

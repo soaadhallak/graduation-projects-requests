@@ -32,7 +32,7 @@ class UserTest extends TestCase
             'avatar'                => UploadedFile::fake()->image('profile_pic.jpg'),
         ];
 
-        $response = $this->postJson('/api/users', $payload);
+        $response = $this->postJson('/api/auth', $payload);
 
         $response->assertCreated()
             ->assertJsonStructure([
@@ -42,7 +42,7 @@ class UserTest extends TestCase
 
         $user = User::whereEmail('test@test.com')->first();
 
-        $this->assertDatabaseHas('student_details', [
+        $this->assertDatabaseHas('students', [
             'user_id'           => $user->id,
             'university_number' => '123456',
             'major_id'          => $major->id
@@ -57,7 +57,7 @@ class UserTest extends TestCase
             'password'=>Hash::make('12345678')
         ]);
 
-        $response=$this->postJson('/api/users/login',[
+        $response=$this->postJson('/api/auth/login',[
             'email'=>$user->email,
             'password'=>'12345678'
         ]);
@@ -75,7 +75,7 @@ class UserTest extends TestCase
             'password'=>Hash::make('12345876')
         ];
 
-        $response=$this->postJson('/api/users/login',$payload);
+        $response=$this->postJson('/api/auth/login',$payload);
 
         $response->assertUnprocessable();
     }
@@ -84,7 +84,7 @@ class UserTest extends TestCase
         $user=User::factory()->create();
         $token = $user->createToken('test-token')->plainTextToken;
 
-        $response=$this->withToken($token)->postJson('/api/users/logout');
+        $response=$this->withToken($token)->postJson('/api/auth/logout');
 
         $response->assertOk();
         $this->assertCount(0, $user->tokens);
@@ -92,7 +92,7 @@ class UserTest extends TestCase
 
     public function test_user_unauthenticated(){
 
-        $response=$this->postJson('/api/users/logout');
+        $response=$this->postJson('/api/auth/logout');
 
         $response->assertUnauthorized();
     }

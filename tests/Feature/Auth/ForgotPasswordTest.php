@@ -21,7 +21,7 @@ class ForgotPasswordTest extends TestCase
             'email'=>'test@test.com'
         ]);
 
-        $response = $this->postJson('/api/users/forgot-password',[
+        $response = $this->postJson('/api/auth/forgot-password',[
             'email'=>$user->email
         ]);
 
@@ -30,7 +30,7 @@ class ForgotPasswordTest extends TestCase
 
     public function test_if_email_does_not_exist()
     {
-        $response=$this->postJson('/api/users/forgot-password',[
+        $response=$this->postJson('/api/auth/forgot-password',[
             'email'=>'test@test.com'
         ]);
 
@@ -45,7 +45,7 @@ class ForgotPasswordTest extends TestCase
         ]);
         $token=Password::createToken($user);
 
-        $response=$this->postJson('/api/users/reset-password',[
+        $response=$this->postJson('/api/auth/reset-password',[
             'email'=>$user->email,
             'token'=>$token,
             'password'=>'12347856',
@@ -62,7 +62,7 @@ class ForgotPasswordTest extends TestCase
     {
         $user=User::factory()->create();
 
-        $response=$this->postJson('/api/users/reset-password',[
+        $response=$this->postJson('/api/auth/reset-password',[
             'email'=>$user->email,
             'token'=>'invalid',
             'password'=>'12347856',

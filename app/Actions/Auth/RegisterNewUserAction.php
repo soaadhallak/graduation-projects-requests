@@ -1,7 +1,7 @@
 <?php
 namespace App\Actions\Auth;
 
-use App\Data\StudentDetailsData;
+use App\Data\StudentData;
 use App\Data\UserData;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
@@ -11,9 +11,9 @@ use Mrmarchone\LaravelAutoCrud\Helpers\MediaHelper;
 
 class RegisterNewUserAction
 {
-    public function execute(UserData $userData,StudentDetailsData $studentDetailsData):array
+    public function execute(UserData $userData,StudentData $studentData):array
     {
-        return DB::transaction(static function () use ($userData,$studentDetailsData)
+        return DB::transaction(static function () use ($userData,$studentData)
         {
             Log::info(['user',$userData]);
             $user=User::create($userData->onlyModelAttributes());
@@ -25,7 +25,7 @@ class RegisterNewUserAction
             $user->assignRole('student');
             $token=$user->createToken('user-token')->plainTextToken;
 
-            $user->studentDetail()->create($studentDetailsData->onlyModelAttributes());
+            $user->student()->create($studentData->onlyModelAttributes());
 
             return[
                 'user'=>$user,

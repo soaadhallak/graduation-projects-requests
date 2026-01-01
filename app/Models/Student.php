@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
-class StudentDetail extends Model
+class Student extends Model
 {
     protected $primaryKey = 'user_id';
     public $incrementing = false;
-    
+
     protected $fillable = [
         'university_number',
         'skills',

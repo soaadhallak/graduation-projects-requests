@@ -133,7 +133,7 @@ return [
      */
     'name_mapping_strategy' => [
         'input' => null,
-        'output' => null,
+        'output' => \Spatie\LaravelData\Mappers\SnakeCaseMapper::class,
     ],
 
     /*

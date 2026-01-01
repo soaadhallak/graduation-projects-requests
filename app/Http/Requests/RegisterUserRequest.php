@@ -26,7 +26,7 @@ class RegisterUserRequest extends FormRequest
             'name'=>['required','string','max:255'],
             'email'=>['required','email','unique:users,email'],
             'password'=>['required',Rules\Password::default()],
-            'universityNumber'=>['required','string','max:10','unique:student_details,university_number'],
+            'universityNumber'=>['required','string','max:10','unique:students,university_number'],
             'skills'=>['required','string','max:255'],
             'majorId'=>['required','exists:majors,id'],
             'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
