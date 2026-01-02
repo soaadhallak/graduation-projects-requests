@@ -25,7 +25,7 @@ class AuthController extends Controller
 
         return UserResource::make($user->load(['media','student','roles','permissions']))
             ->additional([
-                'message'=>ResponseMessages::CREATED,
+                'message'=>ResponseMessages::CREATED->message(),
                 'token'=>$token
             ])->response()
             ->setStatusCode(Response::HTTP_CREATED);
@@ -39,7 +39,7 @@ class AuthController extends Controller
 
         return UserResource::make($user->load(['media','student','roles','permissions']))
             ->additional([
-                'message'=>ResponseMessages::RETRIEVED,
+                'message'=>ResponseMessages::RETRIEVED->message(),
                 'token'=>$token
             ]);
     }
@@ -51,7 +51,7 @@ class AuthController extends Controller
 
         return UserResource::make($user->load(['media','student','roles','permissions']))
             ->additional([
-                'message'=>ResponseMessages::DELETED,
+                'message'=>ResponseMessages::DELETED->message(),
             ]);
     }
 }
