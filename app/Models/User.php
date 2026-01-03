@@ -4,13 +4,20 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Mrmarchone\LaravelAutoCrud\Traits\HasMediaConversions;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable  implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable,HasApiTokens,HasRoles,HasMediaConversions;
+
 
     /**
      * The attributes that are mass assignable.
@@ -45,4 +52,25 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function student():HasOne{
+        return $this->hasOne(Student::class);
+    }
+
+    public function projects():HasMany{
+        return $this->hasMany(Project::class);
+    }
+
+    public function projectRequests()
+    {
+        return $this->hasManyThrough(
+            ProjectRequest::class,
+            Student::class,
+            'user_id',
+            'team_id',
+            'id',
+            'team_id'
+        );
+    }
+
 }
