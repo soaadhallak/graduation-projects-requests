@@ -21,8 +21,7 @@ class TeamService
                 'submit project request',
                 'edit project request',
                 'delete project request',
-                'remove team member',
-                'invite Members'
+                'remove team member'
             ]);
 
             $user->student()->update([
