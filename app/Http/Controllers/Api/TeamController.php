@@ -51,7 +51,7 @@ class TeamController extends Controller
     {
         Gate::authorize('view',$team);
 
-        return TeamResource::make($team->load(['leader.media','leader.roles','leader.permissions','students']))
+        return TeamResource::make($team->load(['leader.media','leader.roles','leader.permissions','students.user.media','students.user.student','leader.student']))
         ->additional([
             'message'=>ResponseMessages::RETRIEVED->message()
         ]);
@@ -66,7 +66,7 @@ class TeamController extends Controller
 
         $team=$this->teamService->update(TeamData::from($request->validated()),$team);
 
-        return TeamResource::make($team->load(['leader.media','leader.roles','leader.permissions','students']))
+        return TeamResource::make($team->load(['leader.media','leader.roles','leader.permissions','students.user.media','students.user.student','leader.student']))
         ->additional([
             'message'=>ResponseMessages::UPDATED->message()
         ]);
@@ -81,7 +81,7 @@ class TeamController extends Controller
 
         $team->delete();
 
-        return TeamResource::make($team->load(['leader.media','leader.roles','leader.permissions','students']))
+        return TeamResource::make($team->load(['leader.media','leader.roles','leader.permissions','students.user.media','students.user.student','leader.student']))
         ->additional([
             'message' => ResponseMessages::DELETED->message()
         ]);

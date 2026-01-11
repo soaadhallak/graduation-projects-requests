@@ -73,4 +73,9 @@ class User extends Authenticatable  implements HasMedia
         );
     }
 
+    public function joinRequests():HasMany
+    {
+        return $this->hasMany(TeamJoinRequest::class);
+    }
+
 }

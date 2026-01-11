@@ -18,7 +18,11 @@ class TeamResource extends JsonResource
             'id'=>$this->id,
             'name'=>$this->name,
             'leader'=>UserResource::make($this->whenLoaded('leader')),
-            'members'=>UserResource::collection($this->whenLoaded('students'))
+            'members'=>UserResource::collection($this->whenLoaded('students',function(){
+                return $this->students->map(function($student){
+                    return $student->user;
+                });
+            }))
         ];
     }
 }

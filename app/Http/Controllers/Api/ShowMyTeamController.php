@@ -23,7 +23,7 @@ class ShowMyTeamController extends Controller
             abort('404','You do not have a team');
         }
 
-        $team->load(['leader.media','leader.roles','leader.permissions','students']);
+        $team->load(['leader.media','leader.roles','leader.permissions','students.user.media','students.user.student','leader.student']);
 
         return TeamResource::make($team)
         ->additional([

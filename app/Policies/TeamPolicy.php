@@ -28,5 +28,10 @@ class TeamPolicy
         return $team->leader_id === $user->id;
     }
 
+    public function invite(User $user,Team $team):bool
+    {
+        return $team->leader_id === $user->id;
+    }
+
 
 }
