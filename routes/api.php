@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ShowMyTeamController;
 use App\Http\Controllers\Api\ShowTeamInvitationsController;
 use App\Http\Controllers\Api\TeamController;
+use App\Http\Controllers\RemoveTeamMemberControlle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,7 @@ Route::get('/my-team', ShowMyTeamController::class)->middleware(['auth:sanctum',
 Route::post('{team}/invite',InviteMembersController::class)->middleware(['auth:sanctum','role:student']);
 Route::post('/accept', AcceptInvitationController::class)->middleware(['auth:sanctum','role:student']);
 Route::get('{team}/invitations',ShowTeamInvitationsController::class)->middleware(['auth:sanctum','role:student']);
+Route::delete('{team}/remove/{user}', RemoveTeamMemberControlle::class)->middleware(['auth:sanctum','role:student']);
 
 Route::middleware(['auth:sanctum'])->prefix('notifications')->group(function(){
     Route::get('/',[NotificationController::class,'index']);
