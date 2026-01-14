@@ -25,4 +25,15 @@ class Team extends Model
     {
         return $this->hasMany(ProjectRequest::class);
     }
+
+    public function invitations(): HasMany
+    {
+        return $this->hasMany(TeamInvitation::class);
+    }
+
+    public function joinRequests():HasMany
+    {
+        return $this->hasMany(TeamJoinRequest::class);
+    }
+
 }

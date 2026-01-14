@@ -1,0 +1,13 @@
+{
+    "Invalid token": "رمز التحقق غير صالح",
+    "This invitation has expired": "انتهت صلاحية هذه الدعوة",
+    "Invalid invitation": "دعوة غير صالحة أو تم استخدامها مسبقاً",
+    "This invitation is for another email": "هذه الدعوة مخصصة لبريد إلكتروني آخر",
+    "You have a team already": "أنت مسجل في فريق بالفعل",
+    "Your team has 8 members, you can not send any more invitations": "فريقك لديه ثمانية اعضاء أنت لا تستطيع ارسال دعوات اكثر",
+    "You can not invite yourself": "انت لا تستطيع دعوة نفسك",
+    "This email have team already": "هذا الايميل يمتلك فريق  بالفعل",
+    "You send invitation to this email already": "انت ارسلت دعوة لهذا الايميل بالفعل",
+    "This student does not belong to this team": "هذا الطالب لا ينتمي لهذا الفريق",
+    "You do not have a team": "انت لا تملك فريق"
+}

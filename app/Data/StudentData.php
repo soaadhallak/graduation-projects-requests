@@ -16,11 +16,11 @@ class StudentData extends Data
 
     public function __construct(
         #[Max(10),Unique('students','university_number')]
-        public string $universityNumber,
+        public ?string $universityNumber,
         #[Max(255)]
-        public string $skills,
+        public ?string $skills,
         #[Exists('majors','id')]
-        public int $majorId,
+        public ?int $majorId,
         #[Exists('teams','id')]
         public ?int $teamId,
     ) {}

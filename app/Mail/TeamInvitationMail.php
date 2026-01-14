@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Mail;
+
+use App\Models\TeamInvitation;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
+
+class TeamInvitationMail extends Mailable implements ShouldQueue
+{
+    use Queueable, SerializesModels;
+
+    public $tries=3;
+    /**
+     * Create a new message instance.
+     */
+    public function __construct(
+        public TeamInvitation $teamInvitation,
+        public string $teamName,
+        public string $studentName
+    )
+    {
+        //
+    }
+
+    /**
+     * Get the message envelope.
+     */
+    public function envelope(): Envelope
+    {
+        return new Envelope(
+            subject: 'Invitation to join ' . $this->teamName,
+        );
+    }
+
+    /**
+     * Get the message content definition.
+     */
+    public function content(): Content
+    {
+        return new Content(
+            view:'emails.invitation',
+            with:[
+                'url' => config('app.frontend_url') . '/join-team?token=' . $this->teamInvitation->token,
+            ]
+        );
+    }
+
+    /**
+     * Get the attachments for the message.
+     *
+     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     */
+    public function attachments(): array
+    {
+        return [];
+    }
+}
