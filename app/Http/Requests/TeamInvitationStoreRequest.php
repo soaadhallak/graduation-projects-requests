@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\InviteMemberRule;
+use App\Rules\TeamMemberLimitRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -22,9 +24,11 @@ class TeamInvitationStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $team=$this->route('team');
+
         return [
-            'emails'=>['required','array','min:1','max:7'],
-            'emails.*'=>['email','max:255','exists:users,email']
+            'emails'=>['required','array','min:1','max:7',new TeamMemberLimitRule($team)],
+            'emails.*'=>['email','max:255','exists:users,email',new InviteMemberRule($team)]
         ];
     }
 }

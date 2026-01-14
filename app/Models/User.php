@@ -78,4 +78,16 @@ class User extends Authenticatable  implements HasMedia
         return $this->hasMany(TeamJoinRequest::class);
     }
 
+    public function team()
+    {
+        return $this->hasOneThrough(
+            Team::class,
+            Student::class,
+            'user_id',
+            'id',
+            'id',
+            'team_id'
+        );
+    }
+
 }

@@ -20,13 +20,15 @@ class RemoveTeamMemberControlle extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Team $team,Student $student,StudentService $studentService,RemoveMemberRequest $request):TeamResource
+    public function __invoke(Team $team,Student $student,RemoveMemberRequest $request):TeamResource
     {
         Gate::authorize('removeMember',[$team,$student]);
 
-        $student=$studentService->update($student,StudentData::from(['teamId'=>null]));
+        $student->team()->dissociate();
 
-        $student->notify(new TeamMemberRemovedNotification($team));
+        $student->save();
+
+        $student->user?->notify(new TeamMemberRemovedNotification($team));
 
         return TeamResource::make($team->load('leader.media','students.user.media'))
             ->additional([

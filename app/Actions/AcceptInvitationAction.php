@@ -1,6 +1,7 @@
 <?php
 namespace App\Actions;
 use App\Data\AcceptInvitationData;
+use App\Enums\TeamInvitationStatus;
 use App\Models\Team;
 use App\Models\TeamInvitation;
 use App\Models\User;
@@ -19,38 +20,18 @@ class AcceptInvitationAction
                 ->with(['team'])
                 ->first();
 
-            if(!$invitation){
-                throw ValidationException::withMessages(['token' => 'Invalid token']);
-            }
-
-            if($invitation->expires_at->isPast()){
-                $invitation->update(['status' => 'expired']);
-                throw ValidationException::withMessages(['token' => 'This invitation has expired']);
-            }
-
-            if($invitation->status != 'pending'){
-                throw ValidationException::withMessages(['token' => 'Invalid invitation']);
-            }
-
-            if($invitation->email != $user->email){
-                throw ValidationException::withMessages(['token' => 'This invitation is for another email']);
-            }
-
-            if($user->student?->team_id){
-                throw ValidationException::withMessages(['token' => 'You have a team already']);
-            }
 
             $user->student()->update([
                 'team_id' => $invitation->team_id
             ]);
 
             $invitation->update([
-                'status' => 'accepted',
+                'status' => TeamInvitationStatus::ACCEPTED,
             ]);
 
             TeamInvitation::where('email', $user->email)
                 ->where('id', '!=', $invitation->id)
-                ->update(['status' => 'revoked']);
+                ->update(['status' => TeamInvitationStatus::REVOKED]);
 
             $inviter=$invitation->team->leader;
             $inviter->notify(new InvitationAcceptedNotification($invitation));

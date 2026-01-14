@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Student;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -31,6 +32,11 @@ class TeamPolicy
     public function invite(User $user,Team $team):bool
     {
         return $team->leader_id === $user->id;
+    }
+
+    public function removeMember(User $user, Team $team, Student $student): bool
+    {
+        return $team->leader_id !== $student->id && $team->leader_id === $user->id;
     }
 
 

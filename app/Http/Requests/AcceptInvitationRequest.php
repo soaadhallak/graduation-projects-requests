@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\TeamInvitationAcceptRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AcceptInvitationRequest extends FormRequest
 {
@@ -22,7 +24,7 @@ class AcceptInvitationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'token'=>['required','string','max:255']
+            'token'=>['required','string','max:255',new TeamInvitationAcceptRule(Auth::user())]
         ];
     }
 }

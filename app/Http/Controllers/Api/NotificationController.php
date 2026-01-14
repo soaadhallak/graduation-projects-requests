@@ -12,7 +12,7 @@ class NotificationController extends Controller
 {
     public function index():AnonymousResourceCollection
     {
-        $notifications=Auth::user()->notifications()->latest()->paginate(1);
+        $notifications=Auth::user()->notifications()->latest()->paginate(7);
 
         return NotificationResource::collection($notifications)
             ->additional([

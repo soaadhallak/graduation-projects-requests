@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TeamInvitationStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -19,6 +20,7 @@ class TeamInvitation extends Model
     {
         return [
             'expires_at' => 'datetime',
+            'status' => TeamInvitationStatus::class
         ];
     }
 

@@ -36,9 +36,7 @@ class TeamService
     public function update(TeamData $teamData,Team $team):Team
     {
         return DB::transaction(function() use ($teamData,$team){
-            tap($team)->update([
-                'name'=>$teamData->name
-            ]);
+            tap($team)->update($teamData->onlyModelAttributes());
 
             return $team;
         });
