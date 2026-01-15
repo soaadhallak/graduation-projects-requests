@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class TeamInvitationMail extends Mailable
+class InvitationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -32,7 +32,7 @@ class TeamInvitationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Invitation to join ' . $this->teamName,
+           subject: 'Invitation to join ' . $this->teamName,
         );
     }
 
