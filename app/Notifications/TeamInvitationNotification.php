@@ -8,11 +8,10 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 
-class TeamInvitationNotification extends Notification implements ShouldQueue
+class TeamInvitationNotification extends Notification
 {
     use Queueable;
 
-    public $tries=3;
 
     /**
      * Create a new notification instance.
