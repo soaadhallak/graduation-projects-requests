@@ -10,11 +10,10 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class TeamInvitationMail extends Mailable implements ShouldQueue
+class TeamInvitationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $tries=3;
     /**
      * Create a new message instance.
      */

@@ -8,11 +8,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class TeamMemberRemovedNotification extends Notification implements ShouldQueue
+class TeamMemberRemovedNotification extends Notification
 {
     use Queueable;
 
-    public $tries=3;
+
     /**
      * Create a new notification instance.
      */
