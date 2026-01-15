@@ -3,9 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\MemberInvited;
-use App\Mail\TeamInvitationMail;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Mail\InvitationMail;
 use Illuminate\Support\Facades\Mail;
 
 class SendInvitationMail
@@ -24,6 +22,6 @@ class SendInvitationMail
     public function handle(MemberInvited $event): void
     {
         Mail::to($event->invitation->email)
-            ->later(now()->addSeconds(5), new TeamInvitationMail($event->invitation,$event->teamName,$event->studentName));
+            ->send(new InvitationMail($event->invitation,$event->teamName,$event->studentName));
     }
 }
