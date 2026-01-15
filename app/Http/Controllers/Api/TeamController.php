@@ -35,7 +35,7 @@ class TeamController extends Controller
     public function store(TeamStoreRequest $request):JsonResponse
     {
         $team=$this->teamService->store(TeamData::from($request->validated()),Auth::user());
-        return TeamResource::make($team->load(['leader.media','leader.roles','leader.permissions']))
+        return TeamResource::make($team->load(['leader.media','leader.permissions','students.user.media','students.user.student','leader.student']))
         ->additional([
             'message'=>ResponseMessages::CREATED->message()
         ])
@@ -51,7 +51,7 @@ class TeamController extends Controller
     {
         Gate::authorize('view',$team);
 
-        return TeamResource::make($team->load(['leader.media','students.user.media','students.user.student','leader.student']))
+        return TeamResource::make($team->load(['leader.media','leader.permissions','students.user.media','students.user.student','leader.student']))
         ->additional([
             'message'=>ResponseMessages::RETRIEVED->message()
         ]);
@@ -66,7 +66,7 @@ class TeamController extends Controller
 
         $team=$this->teamService->update(TeamData::from($request->validated()),$team);
 
-        return TeamResource::make($team->load(['leader.media','students.user.media','students.user.student','leader.student']))
+        return TeamResource::make($team->load(['leader.media','leader.permissions','students.user.media','students.user.student','leader.student']))
         ->additional([
             'message'=>ResponseMessages::UPDATED->message()
         ]);
@@ -81,7 +81,7 @@ class TeamController extends Controller
 
         $team->delete();
 
-        return TeamResource::make($team->load(['leader.media','leader.roles','leader.permissions','students.user.media','students.user.student','leader.student']))
+        return TeamResource::make($team->load(['leader.media','leader.permissions','students.user.media','students.user.student','leader.student']))
         ->additional([
             'message' => ResponseMessages::DELETED->message()
         ]);
