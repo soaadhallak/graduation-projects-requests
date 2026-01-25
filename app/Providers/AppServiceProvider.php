@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         ResetPassword::toMailUsing(function ($notifiable, $token) {
-        $url = config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";
+        $url = config('app.frontend_url')."/forgot-password/$token?email={$notifiable->getEmailForPasswordReset()}";
 
         return (new MailMessage)
             ->subject('Reset Your Password - ProjectFlow')
