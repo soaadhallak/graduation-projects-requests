@@ -44,7 +44,7 @@ class InvitationMail extends Mailable
         return new Content(
             view:'emails.invitation',
             with:[
-                'url' => config('app.frontend_url') . '/join-team?token=' . $this->teamInvitation->token,
+                'url' => config('app.frontend_url') . '/accept?token=' . $this->teamInvitation->token,
             ]
         );
     }
