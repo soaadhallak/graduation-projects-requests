@@ -2,11 +2,18 @@
 
 namespace App\Models;
 
+use App\Enums\ProjectStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\MediaLibrary\HasMedia;
+use Mrmarchone\LaravelAutoCrud\Traits\HasMediaConversions;
 
-class Project extends Model
+
+class Project extends Model implements HasMedia
 {
+    use HasMediaConversions;
+
     protected $fillable = [
         'title',
         'description',
@@ -17,7 +24,18 @@ class Project extends Model
         'admin_rejection_reason'
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'status' => ProjectStatus::class
+        ];
+    }
+
     public function supervisor():BelongsTo{
         return $this->belongsTo(User::class,'supervisor_id');
+    }
+
+    public function projectRequests():HasMany{
+        return $this->hasMany(ProjectRequest::class);
     }
 }
