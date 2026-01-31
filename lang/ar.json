@@ -9,5 +9,9 @@
     "This email have team already": "هذا الايميل يمتلك فريق  بالفعل",
     "You send invitation to this email already": "انت ارسلت دعوة لهذا الايميل بالفعل",
     "This student does not belong to this team": "هذا الطالب لا ينتمي لهذا الفريق",
-    "You do not have a team": "انت لا تملك فريق"
+    "You do not have a team": "انت لا تملك فريق",
+    "You have accepted project already": "انت لديك مشروع مقبول مسبقا",
+    "You must create team": "انت يجب ان تنشئ فريق",
+    "You must activate lookingForMembers because your team size is less then 4" : "يجب ان تفعل خيار البحث عن اعضاء لان عدد اعضاء فريقك اقل من اربعة",
+    "Your team has :current members you can only look for up to :remaining more students": "يمتلك فريقك حالياً :current أعضاء يمكنك البحث عن :remaining طلاب إضافيين فقط كحد أقصى"
 }

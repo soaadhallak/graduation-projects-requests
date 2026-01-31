@@ -6,9 +6,11 @@ use App\Http\Controllers\Api\Auth\PasswordResetController;
 use App\Http\Controllers\Api\InviteMembersController;
 use App\Http\Controllers\Api\MyteamController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\ProjectRequestController;
 use App\Http\Controllers\Api\ShowMyTeamController;
 use App\Http\Controllers\Api\ShowTeamInvitationsController;
 use App\Http\Controllers\Api\TeamController;
+use App\Http\Controllers\GetOpenTeamsController;
 use App\Http\Controllers\RemoveTeamMemberControlle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -37,3 +39,5 @@ Route::middleware(['auth:sanctum'])->prefix('notifications')->group(function(){
 
 
 Route::apiResource('myteam',MyteamController::class)->middleware(['auth:sanctum','role:student']);
+Route::apiResource('project-request',ProjectRequestController::class)->middleware(['auth:sanctum']);
+Route::get('/open-teams',GetOpenTeamsController::class)->middleware(['auth:sanctum','role:student']);
