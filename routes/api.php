@@ -1,12 +1,15 @@
 <?php
 
 use App\Http\Controllers\Api\AcceptInvitationController;
+use App\Http\Controllers\Api\AcceptTeamJoinRequestController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Auth\PasswordResetController;
 use App\Http\Controllers\Api\InviteMembersController;
+use App\Http\Controllers\Api\JoinRequestController;
 use App\Http\Controllers\Api\MyteamController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ProjectRequestController;
+use App\Http\Controllers\Api\RejectTeamJoinRequestController;
 use App\Http\Controllers\Api\ShowMyTeamController;
 use App\Http\Controllers\Api\ShowTeamInvitationsController;
 use App\Http\Controllers\Api\TeamController;
@@ -41,3 +44,8 @@ Route::middleware(['auth:sanctum'])->prefix('notifications')->group(function(){
 Route::apiResource('myteam',MyteamController::class)->middleware(['auth:sanctum','role:student']);
 Route::apiResource('project-request',ProjectRequestController::class)->middleware(['auth:sanctum']);
 Route::get('/open-teams',GetOpenTeamsController::class)->middleware(['auth:sanctum','role:student']);
+
+Route::apiResource("join-request",JoinRequestController::class)->middleware(['auth:sanctum','role:student']);
+Route::patch('team-join-requests/{team_join_request}/accept', AcceptTeamJoinRequestController::class)->middleware(['auth:sanctum','role:student']);
+Route::patch('team-join-requests/{team_join_request}/reject', RejectTeamJoinRequestController::class)->middleware(['auth:sanctum','role:student']);
+

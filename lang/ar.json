@@ -13,5 +13,7 @@
     "You have accepted project already": "انت لديك مشروع مقبول مسبقا",
     "You must create team": "انت يجب ان تنشئ فريق",
     "You must activate lookingForMembers because your team size is less then 4" : "يجب ان تفعل خيار البحث عن اعضاء لان عدد اعضاء فريقك اقل من اربعة",
-    "Your team has :current members you can only look for up to :remaining more students": "يمتلك فريقك حالياً :current أعضاء يمكنك البحث عن :remaining طلاب إضافيين فقط كحد أقصى"
+    "Your team has :current members you can only look for up to :remaining more students": "يمتلك فريقك حالياً :current أعضاء يمكنك البحث عن :remaining طلاب إضافيين فقط كحد أقصى",
+    "You have a join request pending for this team" : "انت لديك طلب انضمام معلق لهذا الفريق ",
+    "This project is complete" : "هذا المشروع اكتمل"
 }

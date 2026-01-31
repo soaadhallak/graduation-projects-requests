@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\JoinRequestStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -10,8 +11,16 @@ class TeamJoinRequest extends Model
     protected $fillable = [
         'user_id',
         'team_id',
-        'status'
+        'status',
+        'project_request_id'
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'status' => JoinRequestStatus::class
+        ];
+    }
 
     public function team():BelongsTo
     {
@@ -21,5 +30,10 @@ class TeamJoinRequest extends Model
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function projectRequest():BelongsTo
+    {
+        return $this->belongsTo(ProjectRequest::class);
     }
 }
