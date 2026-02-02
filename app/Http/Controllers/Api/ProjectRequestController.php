@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\JsonResponse;
 
 class ProjectRequestController extends Controller
 {
@@ -43,7 +44,7 @@ class ProjectRequestController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProjectRequestStoreRequest $request): ProjectRequestResource
+    public function store(ProjectRequestStoreRequest $request): JsonResponse
     {
         return DB::transaction(function() use ($request){
             $project = $this->projectService->store(ProjectData::from($request->validated()));
