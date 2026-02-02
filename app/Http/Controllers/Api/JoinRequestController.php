@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Data\JoinRequestData;
+use App\Enums\JoinRequestStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JoinRequestStoreRequest;
 use App\Http\Resources\JoinRequestResource;
@@ -31,13 +32,14 @@ class JoinRequestController extends Controller
         Gate::authorize('viewAny',TeamJoinRequest::class);
 
         $joinRequests = Auth::user()->team->joinRequests()
+            ->where('status',JoinRequestStatus::PENDING)
             ->with(['user', 'team','user.media','user.student'])
             ->get();
 
         return JoinRequestResource::collection($joinRequests)
             ->additional([
                 'message' => ResponseMessages::RETRIEVED->message()
-            ]);    
+            ]);
     }
 
     /**
