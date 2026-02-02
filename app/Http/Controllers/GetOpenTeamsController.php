@@ -9,7 +9,7 @@ use App\Http\Resources\ProjectRequestResource;
 use App\Models\ProjectRequest;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-class getOpenTeamsController extends Controller
+class GetOpenTeamsController extends Controller
 {
     /**
      * Handle the incoming request.
