@@ -52,6 +52,7 @@ class TeamInvitationNotification extends Notification
         $teamName=$this->invitation->team->name;
 
         return [
+            'type'=>'team_invitation',
             'team_id'=>$this->invitation->team_id,
             'team_name'=>$teamName,
             'invited_by_user_id'=>$this->inviter->id,

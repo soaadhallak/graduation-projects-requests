@@ -17,7 +17,7 @@ use App\Http\Controllers\GetOpenTeamsController;
 use App\Http\Controllers\RemoveTeamMemberControlle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\SupervisorController;
 
 
 Route::prefix('auth')->group(function(){
@@ -49,3 +49,4 @@ Route::apiResource("join-request",JoinRequestController::class)->middleware(['au
 Route::patch('team-join-requests/{team_join_request}/accept', AcceptTeamJoinRequestController::class)->middleware(['auth:sanctum','role:student']);
 Route::patch('team-join-requests/{team_join_request}/reject', RejectTeamJoinRequestController::class)->middleware(['auth:sanctum','role:student']);
 
+Route::apiResource("supervisor",SupervisorController::class)->middleware(['auth:sanctum']);
