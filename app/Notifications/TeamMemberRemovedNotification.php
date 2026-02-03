@@ -50,6 +50,7 @@ class TeamMemberRemovedNotification extends Notification
         $teamName=$this->team->name;
 
         return [
+            'type'=>'team_member_remove',
             'team_id'=>$this->team->id,
             'team_name'=>$teamName,
             'message'=>'You removed from the team:' . $teamName

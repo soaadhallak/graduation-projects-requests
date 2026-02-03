@@ -48,6 +48,7 @@ class InvitationAcceptedNotification extends Notification
         $newMemberName=$this->invitation->user->name;
 
         return [
+            'type'=>'invitation_accept',
             'team_id'=>$this->invitation->team_id,
             'member_id'=>$this->invitation->user->id,
             'member_name'=>$newMemberName,
