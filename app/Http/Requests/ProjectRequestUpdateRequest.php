@@ -30,7 +30,7 @@ class ProjectRequestUpdateRequest extends FormRequest
             'tools'=>['sometimes','string','max:255'],
             'files'=>['nullable','array','min:1','max:5'],
             'files.*'=>['file','mimes:pdf,zip,docx','max:10240'],
-            'supervisor_id'=>['sometimes','exists:users,id'],
+            'supervisorId'=>['sometimes','exists:users,id'],
             'isLookingForMembers'=>['nullable','boolean',new CheckTeamSizeRule()],
             'maxNumber'=>['required_if:isLookingForMembers,true','integer','min:1',new CheckMaxMembersRule()]
         ];
