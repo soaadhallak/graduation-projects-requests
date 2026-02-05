@@ -81,7 +81,7 @@ class ProjectRequestController extends Controller
 
             return ProjectRequestResource::make($projectRequest->load(['team','team.students','project','project.supervisor','project.media']))
                 ->additional([
-                    'message' => ResponseMessages::UPDATED
+                    'message' => ResponseMessages::UPDATED->message()
                 ]);
 
         });

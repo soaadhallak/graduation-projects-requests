@@ -33,7 +33,7 @@ class ProjectRequestStoreRequest extends FormRequest
             'description'=>['required','string','max:255','min:25'],
             'tools'=>['required','string','max:255'],
             'files'=>['nullable','array','min:1','max:5'],
-            'files.*'=>['file','mimes:pdf,zip,docx','max:10240'],
+            'files.*'=>['file','mimes:pdf,zip,docx,png,jpg','max:10240'],
             'supervisorId'=>['required','exists:users,id'],
             'isLookingForMembers'=>['nullable','boolean',new CheckTeamSizeRule()],
             'maxNumber'=>['required_if:isLookingForMembers,true','integer','min:1',new CheckMaxMembersRule()],
