@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\AcceptSupervisorInvitationAction;
+use App\Data\UserData;
 use App\Enums\ResponseMessages;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SupervisorStoreRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class SupervisorController extends Controller
 {
@@ -23,24 +28,35 @@ class SupervisorController extends Controller
         return UserResource::collection($supervisors)
             ->additional([
                 'message' => ResponseMessages::RETRIEVED->message()
-            ]);    
+            ]);
 
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SupervisorStoreRequest $request,AcceptSupervisorInvitationAction $acceptSupervisor):JsonResponse
     {
-        //
+        $supervisor = $acceptSupervisor->execute(UserData::from($request->validated()),$request->token);
+
+        return UserResource::make($supervisor['user']->load(['media','roles','permissions']))
+            ->additional([
+                'message' => ResponseMessages::CREATED->message(),
+                'token'=>$supervisor['token']
+            ])
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user): UserResource
     {
-        //
+        return UserResource::make($user->load(['media','roles','permissions']))
+            ->additional([
+                'message' => ResponseMessages::RETRIEVED->message()
+            ]);
     }
 
     /**
@@ -54,8 +70,13 @@ class SupervisorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user): UserResource
     {
-        //
+        $user->delete();
+
+        return UserResource::make($user->load(['media','roles','permissions']))
+            ->additional([
+                'message' => ResponseMessages::DELETED->message()
+            ]);
     }
 }

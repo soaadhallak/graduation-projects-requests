@@ -11,4 +11,5 @@ enum ProjectStatus:string
     case REJECTED = 'rejected';
     case COMPLETE = 'complete';
     case ARCHIVED ='archived';
+    case REVOKED='revoked';
 }
