@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ProjectStatus;
+use App\Traits\ProjectFilterQuery;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,7 +13,7 @@ use Mrmarchone\LaravelAutoCrud\Traits\HasMediaConversions;
 
 class Project extends Model implements HasMedia
 {
-    use HasMediaConversions;
+    use HasMediaConversions,ProjectFilterQuery;
 
     protected $fillable = [
         'title',

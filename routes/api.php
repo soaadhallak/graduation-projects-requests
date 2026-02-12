@@ -2,6 +2,11 @@
 
 use App\Http\Controllers\Api\AcceptInvitationController;
 use App\Http\Controllers\Api\AcceptTeamJoinRequestController;
+use App\Http\Controllers\Api\Admin\AcceptProjectRequestController;
+use App\Http\Controllers\Api\Admin\InviteSupervisorController;
+use App\Http\Controllers\Api\Admin\ProjectController;
+use App\Http\Controllers\Api\Admin\ProjectRequestController as AdminProjectRequestController;
+use App\Http\Controllers\Api\Admin\RejectProjectRequestController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Auth\PasswordResetController;
 use App\Http\Controllers\Api\InviteMembersController;
@@ -50,3 +55,11 @@ Route::patch('team-join-requests/{team_join_request}/accept', AcceptTeamJoinRequ
 Route::patch('team-join-requests/{team_join_request}/reject', RejectTeamJoinRequestController::class)->middleware(['auth:sanctum','role:student']);
 
 Route::apiResource("supervisor",SupervisorController::class)->middleware(['auth:sanctum']);
+
+Route::apiResource('project',ProjectController::class)->middleware(['auth:sanctum']);
+Route::apiResource('admin-project-request',AdminProjectRequestController::class)->middleware(['auth:sanctum','role:admin']);
+Route::post('project-request/{projectRequest}/accept', AcceptProjectRequestController::class)->middleware(['auth:sanctum', 'role:admin']);
+Route::post('project-request/{projectRequest}/reject', RejectProjectRequestController::class)->middleware(['auth:sanctum', 'role:admin']);;
+
+
+Route::post('invite-supervisor',InviteSupervisorController::class)->middleware(['auth:sanctum','role:admin']);
