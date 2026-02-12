@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Data\ProjectData;
 use App\Enums\ProjectStatus;
 use App\Enums\ResponseMessages;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectRequestFilterRequest;
+use App\Http\Requests\ProjectRequestSupervisorUpdateRequest;
 use App\Http\Resources\ProjectRequestResource;
 use App\Models\ProjectRequest;
+use App\Services\ProjectService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -56,9 +59,14 @@ class ProjectRequestController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProjectRequestSupervisorUpdateRequest $request, ProjectRequest $adminProjectRequest, ProjectService $projectService): ProjectRequestResource
     {
-        //
+        $projectRequest = $projectService->update(ProjectData::from($request->validated()),$adminProjectRequest->project);
+
+        return ProjectRequestResource::make($adminProjectRequest->load(['project.supervisor','project.media','team.students']))
+            ->additional([
+                'message' => ResponseMessages::UPDATED->message()
+            ]);
     }
 
     /**
