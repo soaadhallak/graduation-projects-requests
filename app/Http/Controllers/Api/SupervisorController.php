@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class SupervisorController extends Controller
 {
@@ -51,9 +52,11 @@ class SupervisorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user): UserResource
+    public function show(User $supervisor): UserResource
     {
-        return UserResource::make($user->load(['media','roles','permissions']))
+        Gate::authorize('view', $supervisor);
+
+        return UserResource::make($supervisor->load(['media','roles','permissions']))
             ->additional([
                 'message' => ResponseMessages::RETRIEVED->message()
             ]);
@@ -70,11 +73,13 @@ class SupervisorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user): UserResource
+    public function destroy(User $supervisor): UserResource
     {
-        $user->delete();
+        Gate::authorize('delete', $supervisor);
 
-        return UserResource::make($user->load(['media','roles','permissions']))
+        $supervisor->delete();
+
+        return UserResource::make($supervisor)
             ->additional([
                 'message' => ResponseMessages::DELETED->message()
             ]);

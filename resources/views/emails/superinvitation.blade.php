@@ -18,7 +18,7 @@
     <div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee;">
         <div style="text-align: right; color: #777;">ProjectFlow Invite</div>
         <hr>
-        <h2>Hello {{ $studentName }},</h2>
+        <h2>Hello ,</h2>
         <p>You have been invited to join the Graduation Project Management Platform as a Supervisor.
             Please note that this invitation link will expire in 2 days.
         </p>

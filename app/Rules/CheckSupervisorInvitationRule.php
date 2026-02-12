@@ -15,10 +15,21 @@ class CheckSupervisorInvitationRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $invitation = SupervisorInvitation::where('token', $value)->firstOrFail();
+        $invitation = SupervisorInvitation::where('token', $value)->first();
 
-        if ($invitation->isExpired() || $invitation->isAccepted()) {
+        if (!$invitation) {
             $fail(__('Invalid token'));
+            return;
+        }
+
+
+        if ($invitation->isExpired()) {
+            $fail(__('This invitation has expired'));
+            return;
+        }
+
+        if ($invitation->isAccepted()) {
+            $fail(__('This invitation has already been accepted'));
         }
     }
 }

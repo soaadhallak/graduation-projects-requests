@@ -24,8 +24,8 @@ class SupervisorStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email', Rule::exists('supervisor_invitation','email')],
-            'token' => ['required', 'string', Rule::exists('supervisor_invitation','token'), new CheckSupervisorInvitationRule],
+            'email' => ['required', 'email', Rule::exists('supervisor_invitations','email')],
+            'token' => ['required', 'string', new CheckSupervisorInvitationRule],
             'name'  => ['required', 'string', 'max:255'],
             'password' => ['required', 'min:8', 'confirmed'],
             'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],

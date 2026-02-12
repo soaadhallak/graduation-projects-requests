@@ -39,10 +39,15 @@ class SupervisorInvitationMail extends Mailable
      */
     public function content(): Content
     {
+        $query = http_build_query([
+            'token' => $this->supervisorInvitation->token,
+            'email' => $this->supervisorInvitation->email,
+        ]);
+
         return new Content(
             view: 'emails.superinvitation',
             with:[
-                'url' => config('app.frontend_url')."accept-invitation?token=".$this->supervisorInvitation->token. "&email=" . urlencode($this->supervisorInvitation->email)
+                'url' => config('app.frontend_url')."accept-invitation?{$query}"
             ]
         );
 

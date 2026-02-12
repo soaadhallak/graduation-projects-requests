@@ -17,5 +17,6 @@
     "You have a join request pending for this team" : "انت لديك طلب انضمام معلق لهذا الفريق ",
     "This project is complete" : "هذا المشروع اكتمل",
     "This project is not pending" : "هذا المشروع ليس معلق",
-    "An active invitation has already been sent to this email address" : "هناك دعوة مسبقا لهذا الايميل"
+    "An active invitation has already been sent to this email address" : "هناك دعوة مسبقا لهذا الايميل",
+    "This invitation has already been accepted" : "انت قبلت هذه الدعوة مسبقا"
 }

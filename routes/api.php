@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AcceptInvitationController;
 use App\Http\Controllers\Api\AcceptTeamJoinRequestController;
 use App\Http\Controllers\Api\Admin\AcceptProjectRequestController;
+use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Http\Controllers\Api\Admin\InviteSupervisorController;
 use App\Http\Controllers\Api\Admin\ProjectController;
 use App\Http\Controllers\Api\Admin\ProjectRequestController as AdminProjectRequestController;
@@ -63,3 +64,4 @@ Route::post('project-request/{projectRequest}/reject', RejectProjectRequestContr
 
 
 Route::post('invite-supervisor',InviteSupervisorController::class)->middleware(['auth:sanctum','role:admin']);
+Route::get('/dashboard/statistics', DashboardController::class)->middleware(['auth:sanctum','role:admin']);

@@ -58,7 +58,7 @@ class User extends Authenticatable  implements HasMedia
     }
 
     public function projects():HasMany{
-        return $this->hasMany(Project::class);
+        return $this->hasMany(Project::class,'supervisor_id');
     }
 
     public function projectRequests()
