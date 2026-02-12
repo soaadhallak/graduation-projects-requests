@@ -21,16 +21,15 @@ class AcceptSupervisorInvitationAction
                 MediaHelper::uploadMedia($data->avatar,$user,'primary-image');
             }
 
-            $user->assignRole('supervisor');
-            $token=$user->createToken('user-token')->plainTextToken;
-
-
             $invitation = SupervisorInvitation::where('email', $data->email)
                 ->where('token',$token)
                 ->whereNull('accepted_at')
                 ->first();
 
             $invitation->update(['accepted_at' => now()]);
+
+            $user->assignRole('supervisor');
+            $token=$user->createToken('user-token')->plainTextToken;
 
             return[
                 'user'=>$user,
