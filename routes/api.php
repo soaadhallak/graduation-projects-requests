@@ -24,6 +24,7 @@ use App\Http\Controllers\RemoveTeamMemberControlle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\SupervisorController;
+use App\Http\Controllers\Api\Supervisor\ProjectController as SupservisorProjectController;
 
 
 Route::prefix('auth')->group(function(){
@@ -65,3 +66,10 @@ Route::post('project-request/{projectRequest}/reject', RejectProjectRequestContr
 
 Route::post('invite-supervisor',InviteSupervisorController::class)->middleware(['auth:sanctum','role:admin']);
 Route::get('/dashboard/statistics', DashboardController::class)->middleware(['auth:sanctum','role:admin']);
+
+
+Route::middleware(['auth:sanctum', 'role:supervisor'])->prefix('projects')->group(function () {
+    Route::get('/', [SupservisorProjectController::class, 'index']);
+    Route::patch('/{projectRequest}/mark-as-reviewed', [SupservisorProjectController::class, 'markAsReviewed']);
+    Route::patch('/{projectRequest}/complete', [SupservisorProjectController::class, 'complete']);
+});
