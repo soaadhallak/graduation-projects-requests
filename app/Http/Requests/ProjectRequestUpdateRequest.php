@@ -25,7 +25,7 @@ class ProjectRequestUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=>['sometimes','string','max:255',Rule::unique('projects','title')],
+            'title'=>['sometimes','string','max:255'],
             'description'=>['sometimes','string','max:255','min:25'],
             'tools'=>['sometimes','string','max:255'],
             'files'=>['nullable','array','min:1','max:5'],
