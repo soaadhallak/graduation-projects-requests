@@ -8,6 +8,7 @@ use App\Http\Requests\ProjectRequestFilterRequest;
 use App\Http\Resources\ProjectRequestResource;
 use App\Models\ProjectRequest;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Auth;
 
 class GetOpenTeamsController extends Controller
 {
@@ -16,11 +17,16 @@ class GetOpenTeamsController extends Controller
      */
     public function __invoke(ProjectRequestFilterRequest $request): AnonymousResourceCollection
     {
+        $myTeamId = Auth::user()->team?->id;
+        
         $projectRequests = ProjectRequest::getQuery()
             ->whereHas('project',function($q){
                 $q->where('status',ProjectStatus::OPEN);
             })
             ->where('is_looking_for_members', true)
+            ->when($myTeamId, function ($query) use ($myTeamId) {
+                $query->where('team_id', '!=', $myTeamId);
+            })
             ->with(['project','team','team.students','team.leader','project.supervisor','project.media'])
             ->paginate($request->get('perPage',6))
             ->withQueryString();
