@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Traits\ProjectRequestFilterQuery;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProjectRequest extends Model
 {
-    use ProjectRequestFilterQuery;
+    use ProjectRequestFilterQuery, HasFactory;
 
     protected $fillable = [
         'team_id',
