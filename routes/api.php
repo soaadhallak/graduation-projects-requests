@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\ProjectRequestController;
 use App\Http\Controllers\Api\RejectTeamJoinRequestController;
 use App\Http\Controllers\Api\ShowMyTeamController;
 use App\Http\Controllers\Api\ShowTeamInvitationsController;
+use App\Http\Controllers\Api\Supervisor\AcceptSupervisorInvitationController;
 use App\Http\Controllers\Api\TeamController;
 use App\Http\Controllers\GetOpenTeamsController;
 use App\Http\Controllers\RemoveTeamMemberControlle;
@@ -65,6 +66,7 @@ Route::post('project-request/{projectRequest}/reject', RejectProjectRequestContr
 
 
 Route::post('invite-supervisor',InviteSupervisorController::class)->middleware(['auth:sanctum','role:admin']);
+Route::post('accept-supervisor-invitation',AcceptSupervisorInvitationController::class);
 Route::get('/dashboard/statistics', DashboardController::class)->middleware(['auth:sanctum','role:admin']);
 
 
@@ -73,3 +75,4 @@ Route::middleware(['auth:sanctum', 'role:supervisor'])->prefix('projects')->grou
     Route::patch('/{projectRequest}/mark-as-reviewed', [SupservisorProjectController::class, 'markAsReviewed']);
     Route::patch('/{projectRequest}/complete', [SupservisorProjectController::class, 'complete']);
 });
+

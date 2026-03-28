@@ -36,17 +36,9 @@ class SupervisorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SupervisorStoreRequest $request,AcceptSupervisorInvitationAction $acceptSupervisor):JsonResponse
+    public function store()
     {
-        $supervisor = $acceptSupervisor->execute(UserData::from($request->validated()),$request->token);
 
-        return UserResource::make($supervisor['user']->load(['media','roles','permissions']))
-            ->additional([
-                'message' => ResponseMessages::CREATED->message(),
-                'token'=>$supervisor['token']
-            ])
-            ->response()
-            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
