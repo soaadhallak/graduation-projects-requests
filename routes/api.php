@@ -70,7 +70,7 @@ Route::post('accept-supervisor-invitation',AcceptSupervisorInvitationController:
 Route::get('/dashboard/statistics', DashboardController::class)->middleware(['auth:sanctum','role:admin']);
 
 
-Route::middleware(['auth:sanctum', 'role:supervisor'])->prefix('projects')->group(function () {
+Route::middleware(['auth:sanctum', 'role:admin|supervisor'])->prefix('projects')->group(function () {
     Route::get('/', [SupservisorProjectController::class, 'index']);
     Route::patch('/{projectRequest}/mark-as-reviewed', [SupservisorProjectController::class, 'markAsReviewed']);
     Route::patch('/{projectRequest}/complete', [SupservisorProjectController::class, 'complete']);

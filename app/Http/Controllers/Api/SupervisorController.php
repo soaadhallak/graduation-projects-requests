@@ -22,7 +22,7 @@ class SupervisorController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        $supervisors = User::role('supervisor')
+        $supervisors = User::role(['supervisor', 'admin'])
             ->with(['media','permissions','roles'])
             ->get();
 
