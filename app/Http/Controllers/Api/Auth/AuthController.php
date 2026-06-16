@@ -13,7 +13,11 @@ use App\Http\Requests\RegisterUserRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\UpdateProfileRequest;
+use App\Services\StudentService;
+use App\Services\UserService;
 
 class AuthController extends Controller
 {
@@ -54,4 +58,34 @@ class AuthController extends Controller
                 'message'=>ResponseMessages::DELETED->message(),
             ]);
     }
+
+    public function getProfile(Request $request): UserResource
+    {
+        $user = $request->user()->load(['media','student.major','roles','permissions']);
+
+        return UserResource::make($user)
+            ->additional([
+                'message' => ResponseMessages::RETRIEVED->message(),
+            ]);
+    }
+
+    public function editProfile(UpdateProfileRequest $request, UserService $userService, StudentService $studentService): UserResource
+    {
+        $user = $request->user();
+
+        $userData = UserData::from($request->validated());
+        $studentData = StudentData::from($request->validated());
+
+        $userService->update($user, $userData);
+
+        if ($user->student) {
+            $studentService->update($user->student, $studentData);
+        } 
+
+        return UserResource::make($user->load(['media','student.major','roles','permissions']))
+            ->additional([
+                'message' => ResponseMessages::UPDATED->message(),
+            ]);
+    }
+
 }
