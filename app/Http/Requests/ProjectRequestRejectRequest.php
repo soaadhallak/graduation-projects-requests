@@ -23,7 +23,7 @@ class ProjectRequestRejectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'adminRejectionReason' => ['required', 'string', 'min:10', 'max:500'],
+            'adminRejectionReason' => ['required', 'string', 'min:2', 'max:500'],
             'status' => ['required']
         ];
     }
